@@ -1,0 +1,39 @@
+# Aula 0 - Git Hub
+
+## Comandos Git
+```
+git clone
+```
+Copia o repositorio do github "git clone [link repositorio]"
+```
+git checkout
+```
+Usado para criar branch "git checkout -b [nome da branch]" 
+```
+git status
+```
+Usado para saber onde você está no diretorio e informações de push
+```
+git add
+```
+Usado para adicionar arquivos para a fila de espera do push
+```
+git commit
+```
+comando para confirmar e salvar alterações LOCAIS
+```
+git push
+```
+O push serve para enviar conteúdo de um repositorio local para um repositorio remoto... ÚLTIMA ETAPA 
+
+
+
+
+
+
+
+
+
+
+
+
