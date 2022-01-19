@@ -8,7 +8,8 @@ Copia o repositorio do github "git clone [link repositorio]"
 ```
 git pull
 ```
-Boa pratica para pegar o que está na Main
+Boa pratica utilizar constantemente para ter atualizado o local com o remoto
+Usado para baixar e buscar o conteúdo de repositorios remotos
 ```
 git checkout
 ```
