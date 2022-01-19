@@ -6,6 +6,10 @@ git clone
 ```
 Copia o repositorio do github "git clone [link repositorio]"
 ```
+git pull
+```
+Boa pratica para pegar o que está na Main
+```
 git checkout
 ```
 Usado para criar branch "git checkout -b [nome da branch]" 
