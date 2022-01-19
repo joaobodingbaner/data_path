@@ -17,10 +17,15 @@ Usado para saber onde você está no diretorio e informações de push
 git add
 ```
 Usado para adicionar arquivos para a fila de espera do push
+
+git add [filename ou . para adicionar TUDO]
 ```
 git commit
 ```
-comando para confirmar e salvar alterações LOCAIS
+Comando para confirmar e salvar alterações LOCAIS
+É necessário incluir uma mensagem
+
+git commit -m "[insira sua mensagem]"
 ```
 git push
 ```
