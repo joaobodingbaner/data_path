@@ -34,6 +34,26 @@ Password: hlweifMGSwG2P41XYsPh5d6E9FhoGMzJ
 ```
 
 
+# Spark
+framework mais forte atualmente pra big data
+
+no mercado há serviços de nuvem que oferecem spark já configurado e gerenciado
+
+
+Cada vez mais os serviços estão indo mais em direção ao Spark
+
+O que tem sido muito utilizado é o Databricks que oferece plataforma com serviço para rodar em nuvem que oferece o spark
+
+Modelo lakehouse que existe hoje é muito vendido pelo Databricks
+
+A otimização que fazem é muito boa, sem precisar muita configuração
+
+Spark possui RDD e Lazy Evaluation
+
+
+"Tunar" -- 
+Shuffle partition faz com que dê pra ajustar o volume de troca de informação entre as partições
+
 
 
 
