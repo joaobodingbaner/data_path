@@ -14,6 +14,8 @@ Possuir uma conta AWS (Com o primeiro ano da conta, não será gasto com nenhum 
 
 ### EC2
 
+#### Configurando Nifi
+
 Se formos instanciar o apache nifi na nuvem é necessário criar a sua role anteriormente.
 Foi atachada a permissão de S3FullAcess a role
 
@@ -38,3 +40,6 @@ $sudo service nifi start
 ```
 
 Dentro do arquivo de log do nifi-app.log haverá os usuarios e senha raiz para logar.
+
+#### Montando fluxo de teste Nifi
+
