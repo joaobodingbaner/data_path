@@ -1,0 +1,87 @@
+# TODO
+## Add
+### Roles
+### SG
+
+
+Parameters:
+  InstanceTypeParameter:
+    Type: String
+    Default: t2.micro
+    AllowedValues:
+      - t2.micro
+      - m1.small
+      - m1.large
+    Description: Enter t2.micro, m1.small, or m1.large. Default is t2.micro.
+  TagOwnerParameter:
+    Type: String
+    Default: jb
+    Description: Owners project
+  TagProjectParameter:
+    Type: String
+    Default: demo-datapath
+    Description: Project name
+  S3RawParameter:
+    Type: String
+    Default: raw
+    Description: Default name for raw layer
+  S3AnalyticsParameter:
+    Type: String
+    Default: analytics
+    Description: Default name for analytics layer
+
+#########################################################################################################
+############################################# RESOURCES #################################################
+#########################################################################################################
+
+Resources:
+  EC2Nifi:
+    Type: AWS::EC2::Instance
+    Properties: 
+      IamInstanceProfile: role-jb-standard-ec2
+      ImageId: ami-03ededff12e34e59e
+      InstanceType: !Ref InstanceTypeParameter
+      KeyName: kp-jb
+      SecurityGroups: 
+        - jb-sg
+      Tags: 
+        - Key: Name
+          Value: ec2-nifi
+        - Key: Owner
+          Value: !Ref TagOwnerParameter
+        - Key: Project
+          Value: !Ref TagProjectParameter
+
+  S3Raw:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Join [ "-", [ !Ref AWS::AccountId, !Ref S3RawParameter, !Ref TagProjectParameter, !Ref AWS::Region ] ]
+      PublicAccessBlockConfiguration: 
+        BlockPublicAcls: True
+        BlockPublicPolicy: True
+        IgnorePublicAcls: True
+        RestrictPublicBuckets: True
+      Tags: 
+        - Key: Owner
+          Value: !Ref TagOwnerParameter
+        - Key: Project
+          Value: !Ref TagProjectParameter
+      VersioningConfiguration: 
+        Status: Suspended
+  
+  S3Analytics:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Join [ "-", [ !Ref AWS::AccountId, !Ref S3AnalyticsParameter, !Ref TagProjectParameter, !Ref AWS::Region ] ]
+      PublicAccessBlockConfiguration: 
+        BlockPublicAcls: True
+        BlockPublicPolicy: True
+        IgnorePublicAcls: True
+        RestrictPublicBuckets: True
+      Tags: 
+        - Key: Owner
+          Value: !Ref TagOwnerParameter
+        - Key: Project
+          Value: !Ref TagProjectParameter
+      VersioningConfiguration: 
+        Status: Suspended
