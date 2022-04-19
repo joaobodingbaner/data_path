@@ -2,57 +2,33 @@ import awswrangler as wr
 import boto3
 import pandas as pd
 
-json_path = "C:\\Users\\joaov\\Desktop\\coding\\git_repos\\data_path\\Aula_demo\\codes\\transform\\example_bitcoin.json"
+bucket_name_raw         = "582585946471-raw-demo-datapath-us-east-1"
+bucket_name_analytics   = "582585946471-analytics-demo-datapath-us-east-1"
 
-s3_path = ""
-def process_local(read_json_path):
-    df_bitcoin_trades = pd.read_json(read_json_path, orient='records')
-    print(df_bitcoin_trades.head())
+s3_read_path            = f"s3://{bucket_name_raw}/data_path/trades/bitcoin/"
+s3_write_path           = f"s3://{bucket_name_analytics}/data_path/trades/bitcoin"
 
-process_local(json_path)
+def read_json_file(read_json_path: str) -> pd.DataFrame:
+    df_bitcoin_trades = wr.s3.read_json(read_json_path)
+    return df_bitcoin_trades
 
-# import json
+def filter_df(df_trade: pd.DataFrame, type_column_name: str, type_value: str) -> pd.DataFrame:
+    df_trade_filtered = df_trade[df_trade[type_column_name] == type_value]
+    return df_trade_filtered
 
-# with open('C:\\Users\\joaov\\Desktop\\coding\\git_repos\\data_path\\Aula_demo\\codes\\transform\\example_bitcoin.json') as f:
-#     print(f)
-# df = wr.s3.read_json([path1, path2])
+def write_parquet_file(df_write: pd.DataFrame, type_value: str):
+    s3_write_path_parquet = f"{s3_write_path}/type_value={type_value}/{type_value}.parquet"
+    wr.s3.to_parquet(df_write, s3_write_path_parquet)
 
-# # Storing data on Data Lake
-# wr.s3.to_parquet(
-#     df=df,
-#     path="s3://bucket/dataset/",
-#     dataset=True,
-#     database="my_db",
-#     table="my_table"
-# )
+df_bitcoin_trades = read_json_file(s3_read_path)
 
-# # Retrieving the data directly from Amazon S3
-# df = wr.s3.read_parquet("s3://bucket/dataset/", dataset=True)
+df_buy = filter_df(df_bitcoin_trades, "type", "buy")
+# print((df_buy.head()))
 
-# # Retrieving the data from Amazon Athena
-# df = wr.athena.read_sql_query("SELECT * FROM my_table", database="my_db")
+df_sell = filter_df(df_bitcoin_trades, "type", "sell")
+# print((df_sell.head()))
 
-# # Get a Redshift connection from Glue Catalog and retrieving data from Redshift Spectrum
-# con = wr.redshift.connect("my-glue-connection")
-# df = wr.redshift.read_sql_query("SELECT * FROM external_schema.my_table", con=con)
-# con.close()
+print (write_parquet_file(df_buy,"buy"))
+print (write_parquet_file(df_sell,"sell"))
+# print (type(write_parquet_file(df_buy,"buy")))
 
-# # Amazon Timestream Write
-# df = pd.DataFrame({
-#     "time": [datetime.now(), datetime.now()],   
-#     "my_dimension": ["foo", "boo"],
-#     "measure": [1.0, 1.1],
-# })
-# rejected_records = wr.timestream.write(df,
-#     database="sampleDB",
-#     table="sampleTable",
-#     time_col="time",
-#     measure_col="measure",
-#     dimensions_cols=["my_dimension"],
-# )
-
-# # Amazon Timestream Query
-# wr.timestream.query("""
-# SELECT time, measure_value::double, my_dimension
-# FROM "sampleDB"."sampleTable" ORDER BY time DESC LIMIT 3
-# """)
