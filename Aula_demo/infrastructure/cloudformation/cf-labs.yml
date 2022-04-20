@@ -35,22 +35,22 @@ Parameters:
 #########################################################################################################
 
 Resources:
-  # EC2Nifi:
-  #   Type: AWS::EC2::Instance
-  #   Properties: 
-  #     IamInstanceProfile: role-jb-standard-ec2
-  #     ImageId: ami-03ededff12e34e59e
-  #     InstanceType: !Ref InstanceTypeParameter
-  #     KeyName: kp-jb
-  #     SecurityGroups: 
-  #       - jb-sg
-  #     Tags: 
-  #       - Key: Name
-  #         Value: ec2-nifi
-  #       - Key: Owner
-  #         Value: !Ref TagOwnerParameter
-  #       - Key: Project
-  #         Value: !Ref TagProjectParameter
+  EC2Nifi:
+    Type: AWS::EC2::Instance
+    Properties: 
+      IamInstanceProfile: role-jb-standard-ec2
+      ImageId: ami-03ededff12e34e59e
+      InstanceType: !Ref InstanceTypeParameter
+      KeyName: kp-jb
+      SecurityGroups: 
+        - jb-sg
+      Tags: 
+        - Key: Name
+          Value: ec2-nifi
+        - Key: Owner
+          Value: !Ref TagOwnerParameter
+        - Key: Project
+          Value: !Ref TagProjectParameter
 
   S3Raw:
     Type: AWS::S3::Bucket

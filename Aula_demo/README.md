@@ -40,7 +40,7 @@ $ sudo /home/ec2-user/nifi-1.16.0/bin/nifi.sh install
 Alterar os campos do nifi.properties dentro do arquivo de conf:
 $ sudo vim /home/ec2-user/nifi-1.16.0/conf/nifi.properties
 - nifi.web.https.host: IP Privado aws (172.....)
-- nifi.web.proxy.host: IP Interno aws (18....:8443)
+- nifi.web.proxy.host: IP Publico aws (18....:8443)
 
 ```shell
 $sudo service nifi start && tail -f /home/ec2-user/nifi-1.16.0/logs/nifi-app.log

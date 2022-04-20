@@ -15,7 +15,7 @@ def empty_all_buckets(buckets_list):
         bucket = s3.Bucket(bucket_name)
         bucket.objects.all().delete()
 
-# empty_all_buckets(buckets_to_destroy)
+empty_all_buckets(buckets_to_destroy)
 
 cf = boto3.client('cloudformation')
 
