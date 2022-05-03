@@ -16,7 +16,7 @@ class TransformLocal:
         self.bucket_name_raw = f"{account_number}-{bucket_raw_prefix}-demo-datapath-us-east-1"
         self.bucket_name_analytics = f"{account_number}-{bucket_analytics_prefix}-demo-datapath-us-east-1"
 
-    def read_json_file(read_json_prefix: str) -> pd.DataFrame:
+    def read_json_file(self, read_json_prefix: str) -> pd.DataFrame:
         """Read a json path from s3
 
         Parameters
@@ -31,7 +31,7 @@ class TransformLocal:
         df_bitcoin_trades = wr.s3.read_json(read_json_path)
         return df_bitcoin_trades
 
-    def filter_df(df: pd.DataFrame, type_column_name: str, type_value: str) -> pd.DataFrame:
+    def filter_df(self, df: pd.DataFrame, type_column_name: str, type_value: str) -> pd.DataFrame:
         """ Filter a dataframe based on a column.
 
         Parameters
@@ -50,7 +50,7 @@ class TransformLocal:
         df_filtered = df[df[type_column_name] == type_value]
         return df_filtered
 
-    def write_parquet_file(df_write: pd.DataFrame, type_value: str): #TODO 
+    def write_parquet_file(self, df_write: pd.DataFrame, type_value: str): #TODO 
         """ Write dataframe in the parquet format in s3.
 
         Parameters

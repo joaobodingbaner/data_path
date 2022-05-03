@@ -1,0 +1,4 @@
+boto3==1.21.42
+awswrangler==2.15.1
+pandas
+pytest
