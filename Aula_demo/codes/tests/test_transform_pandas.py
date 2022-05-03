@@ -1,20 +1,33 @@
 import pytest
-import os 
-import sys
-import inspect
-
-currentdir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
-parentdir = os.path.dirname(currentdir)
-
-print (currentdir)
-print (parentdir)
+from pandas.testing import assert_frame_equal
+import pandas as pd
 
 from transform.process_local_pandas import TransformLocal
+from _utils import (
+    get_df_bitcoin_trade
+)
 
-a = TransformLocal(account_number="asdasd")
-print (a.dir_path)
+TransformLocal = TransformLocal()
 
-a.read_json_local_file("example_bitcoin.json")
+@pytest.fixture
+def dataframe_bitcoin_trade():
+    return get_df_bitcoin_trade()
+
+
+def test_dataframe_apenas_com_trades_buy(dataframe_bitcoin_trade):
+    expected_df = pd.DataFrame({'amount': [0.0177606], 'date': [1501871387], 'price': [9735], 'tid': [739719], 'type': ["buy"]})
+    result_df = TransformLocal.filter_df(df = dataframe_bitcoin_trade, type_column_name = "type", type_value = "buy")
+
+    assert_frame_equal(result_df, expected_df)
+
+
+def test_dataframe_apenas_com_trades_sell(dataframe_bitcoin_trade):
+    expected_df = pd.DataFrame({'amount': [0.001], 'date': [1501871383], 'price': [9723], 'tid': [739718], 'type': ["sell"]})
+    result_df = TransformLocal.filter_df(df = dataframe_bitcoin_trade, type_column_name = "type", type_value = "sell")
+
+    assert_frame_equal(result_df, expected_df)
+
+
 
 # @pytest.fixture
 # def restaurante_fila_vazia():
