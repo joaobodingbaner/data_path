@@ -17,5 +17,3 @@ def get_df_bitcoin_trade():
     df = pd.DataFrame(data)
     return df
 
-get_df_bitcoin_trade()
-
