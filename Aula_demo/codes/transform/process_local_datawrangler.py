@@ -12,9 +12,9 @@ s3_read_path            = f"s3://{BUCKET_NAME_RAW}/data_path/aula_demo/mercadobi
 s3_write_path           = f"s3://{BUCKET_NAME_ANALYTICS}/data_path/aula_demo/mercadobitcoin/trades/bitcoin"
 
 class TransformLocal:
-    def __init__(self, account_number, bucket_raw_prefix = "raw", bucket_analytics_prefix = "analytics"):
-        self.bucket_name_raw = f"{account_number}-{bucket_raw_prefix}-demo-datapath-us-east-1"
-        self.bucket_name_analytics = f"{account_number}-{bucket_analytics_prefix}-demo-datapath-us-east-1"
+    def __init__(self, account_number="582585946471", bucket_raw_prefix = "raw", bucket_analytics_prefix = "analytics"):
+        self.bucket_name_raw = f"s3://{account_number}-{bucket_raw_prefix}-demo-datapath-us-east-1"
+        self.bucket_name_analytics = f"s3://{account_number}-{bucket_analytics_prefix}-demo-datapath-us-east-1"
 
     def read_json_file(self, read_json_prefix: str) -> pd.DataFrame:
         """Read a json path from s3
@@ -28,6 +28,7 @@ class TransformLocal:
         A pandas dataframe based in wr.s3.read_json.
 
         """
+        read_json_path = self.bucket_name_raw + "/" + read_json_prefix
         df_bitcoin_trades = wr.s3.read_json(read_json_path)
         return df_bitcoin_trades
 
