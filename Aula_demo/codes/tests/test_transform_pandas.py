@@ -22,7 +22,7 @@ def test_dataframe_apenas_com_trades_buy(dataframe_bitcoin_trade):
 
 
 def test_dataframe_apenas_com_trades_sell(dataframe_bitcoin_trade):
-    expected_df = pd.DataFrame({'amount': [0.001], 'date': [1501871383], 'price': [9723], 'tid': [739718], 'type': ["sell"]})
+    expected_df = pd.DataFrame({'amount': [0.002], 'date': [1501871382], 'price': [9723], 'tid': [739718], 'type': ["sell"]})
     result_df = TransformLocal.filter_df(df = dataframe_bitcoin_trade, type_column_name = "type", type_value = "sell")
 
     assert_frame_equal(result_df, expected_df)
