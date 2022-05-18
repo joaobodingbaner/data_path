@@ -1,6 +1,4 @@
 import pytest
-from pandas.testing import assert_frame_equal
-import pandas as pd
 
 from utils.populate import PopulateParquet
 
